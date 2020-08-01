@@ -1,86 +1,102 @@
 <!DOCTYPE html>
 <html lang="th" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="layout/main_layout">
+ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+ layout:decorate="layout/main_layout">
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Edit Student</title>
 </head>
 <body>
-	<div layout:fragment="content">
-		
-		<div class="row">
-			<div class="col-md-6"><h1 class="h3 mb-2 text-gray-800 mb-4">Edit Student</h1></div>
-			<div class="col-md-6 text-right"><a href="/student" class="btn btn-info"><i class="fas fa-chevron-left"></i> Back</a></div>
-		</div>
-		
-		<form action="#" th:action="@{/editsave}" method="post">
+ <div layout:fragment="content">
+  
+  <div class="row">
+   <div class="col-md-6"><h1 class="h3 mb-2 text-gray-800 mb-4">Edit Student</h1></div>
+   <div class="col-md-6 text-right"><a href="/student" class="btn btn-info"><i class="fas fa-chevron-left"></i> Back</a></div>
+  </div>
+  
+  <form action="#" th:action="@{/editsave}" th:object="${student}"
+   method="post">
 
-			<div class="form-group row">
-				<label for="firstName" class="col-sm-2 col-form-label">First
-					Name</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" id="firstName">
-				</div>
-			</div>
+   <input type="hidden" th:value="${id}" th:field="*{id}"
+    class="form-control">
 
-			<div class="form-group row">
-				<label for="lastName" class="col-sm-2 col-form-label">Last
-					Name</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" id="lastName">
-				</div>
-			</div>
+   <div class="form-group row">
+    <label for="firstName" class="col-sm-2 col-form-label">First
+     Name</label>
+    <div class="col-sm-10">
+     <input type="text" class="form-control" id="firstName"
+      th:field="*{firstName}">
+      <label th:if="${#fields.hasErrors('firstName')}"  th:errors="*{firstName}"  th:class="'error'">Error in First Name</label>
+    </div>
+   </div>
 
-			<div class="form-group row">
-				<label for="email" class="col-sm-2 col-form-label">Email</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" id="email">
-				</div>
-			</div>
+   <div class="form-group row">
+    <label for="lastName" class="col-sm-2 col-form-label">Last
+     Name</label>
+    <div class="col-sm-10">
+     <input type="text" class="form-control" id="lastName"
+      th:field="*{lastName}">
+      <label th:if="${#fields.hasErrors('lastName')}"  th:errors="*{lastName}"  th:class="'error'">Error in Last Name</label>
+    </div>
+   </div>
 
-			<div class="form-group row">
-				<label for="country" class="col-sm-2 col-form-label">Country</label>
-				<div class="col-sm-10">
-					<select class="form-control">
-						<option>Country</option>
-					</select>
-				</div>
-			</div>
+   <div class="form-group row">
+    <label for="email" class="col-sm-2 col-form-label">Email</label>
+    <div class="col-sm-10">
+     <input type="text" class="form-control" id="email"
+      th:field="*{email}">
+      <label th:if="${#fields.hasErrors('email')}"  th:errors="*{email}"  th:class="'error'">Error in Email address</label>
+    </div>
+   </div>
 
-			<div class="form-group row">
-				<label for="gender" class="col-sm-2 col-form-label">Gender</label>
-				<div class="col-sm-10">
-					<div class="form-check form-check-inline">
-						<input class="form-check-input" type="radio" id="gender1" value="M"> 
-						<label class="form-check-label" for="gender1">Male</label>
-					</div>
-					<div class="form-check form-check-inline">
-						<input class="form-check-input" type="radio" id="gender2" value="F"> 
-						<label class="form-check-label" for="gender2">Female</label>
-					</div>
-				</div>
-			</div>
+   <div class="form-group row">
+    <label for="country" class="col-sm-2 col-form-label">Country</label>
+    <div class="col-sm-10">
+     <select class="form-control" th:field="*{country}">
+      <option th:each="country : ${countries}" th:value="${country}"
+       th:text="${country}">Country</option>
+     </select>
+     <label th:if="${#fields.hasErrors('country')}"  th:errors="*{country}"  th:class="'error'">Error in Country</label>
+    </div>
+   </div>
+
+   <div class="form-group row">
+    <label for="gender" class="col-sm-2 col-form-label">Gender</label>
+    <div class="col-sm-10">
+     <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" id="gender1"
+       th:field="*{sex}" value="M"> <label
+       class="form-check-label" for="gender1">Male</label>
+     </div>
+     <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" id="gender2"
+       th:field="*{sex}" value="F"> <label
+       class="form-check-label" for="gender2">Female</label>
+     </div>
+    </div>
+    <label th:if="${#fields.hasErrors('sex')}"  th:errors="*{sex}"  th:class="'error'">Error</label>
+   </div>
 
 
-			<div class="form-group row">
-				<label for="country" class="col-sm-2 col-form-label">Section</label>
-				<div class="col-sm-10">
-					<select class="form-control">
-						<option>Section</option>
-					</select>
-				</div>
-			</div>
+   <div class="form-group row">
+    <label for="country" class="col-sm-2 col-form-label">Section</label>
+    <div class="col-sm-10">
+     <select class="form-control"  th:field="*{section}">
+      <option th:each="section : ${sections}" th:value="${section}" th:text="${section}">Section</option>
+     </select>
+     <label th:if="${#fields.hasErrors('section')}"  th:errors="*{section}"  th:class="'error'">Error in Country</label>
+    </div>
+   </div>
 
-			<div class="form-group row">
-				<label for="country" class="col-sm-2 col-form-label">&nbsp;</label>
-				<div class="col-sm-10">
-					<input type="submit" value="Edit" class="btn btn-primary" />
-				</div>
-			</div>
+   <div class="form-group row">
+    <label for="country" class="col-sm-2 col-form-label">&nbsp;</label>
+    <div class="col-sm-10">
+     <input type="submit" value="Edit" class="btn btn-primary" />
+    </div>
+   </div>
 
-		</form>
-	</div>
+  </form>
+ </div>
 </body>
 </html>

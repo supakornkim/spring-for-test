@@ -32,17 +32,17 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>1</td>
-							<td>John</td>
-							<td>Doe</td>
-							<td>Male</td>
-							<td>20/03/2020</td>
-							<td>john@gmail.com</td>
-							<td>Sale</td>
-							<td>USA</td>
-							<td><a href="#" class="btn btn-sm btn-warning">Edit</a></td>
-							<td><a href="#" class="btn btn-sm btn-danger" onclick="return confirm('Confirmed to delete this item ?')">Delete</a></td>
+						<tr th:each="student: ${list}">
+							<td th:text=${student.id}></td>
+							<td th:utext=${student.firstName}></td>
+							<td th:text=${student.lastName}></td>
+							<td th:text="${student.sex}==M ? Male:Female"></td>
+							<td th:text="${#dates.format(student.createdAt,'dd/MM/yyyy')}"></td>
+							<td th:text=${student.email}></td>
+							<td th:text=${student.section}></td>
+							<td th:text=${student.country}></td>
+							<td><a th:href="@{'/editstudent/' + ${student.id}}"  class="btn btn-sm btn-warning">Edit</a></td>
+							<td><a th:href="@{'/deletestudent/' + ${student.id}}" class="btn btn-sm btn-danger" onclick="return confirm('Confirmed to delete this item ?')">Delete</a></td>
 						</tr>
 					</tbody>
 
